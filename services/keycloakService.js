@@ -8,6 +8,7 @@ var keycloakConfig = null;
 
 const FinesseService = require('./finesseService');
 const TeamsService = require('./teamsService');
+const { NOTFOUND } = require("dns");
 
 const finesseService = new FinesseService();
 const teamsService = new TeamsService();
@@ -1090,15 +1091,24 @@ class KeycloakService extends Keycloak {
 
                         } catch (err) {
 
-                            if (err.response) {
+                            
+                            if (err.response && err.response.status !== 404) {
+
                                 reject({
                                     status: err.response.status,
                                     errorMessage: err.response.data
                                 });
+
+                            } else if(err.message){
+
+                                if(err.message !== 'Request failed with status code 404'){
+                                    reject(err);
+                                }
+                                
+                            }else{
+                                continue;
                             }
-
-                            reject(err);
-
+                            
                         }
 
                     }
