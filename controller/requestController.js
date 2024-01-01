@@ -1,7 +1,7 @@
 const axios = require( 'axios' )
 const qs = require( 'querystring' );
 
-/* axios.interceptors.request.use( x => {
+axios.interceptors.request.use( x => {
     // to avoid overwriting if another interceptor
     // already defined the same object (meta)
     x.meta = x.meta || {}
@@ -18,7 +18,7 @@ axios.interceptors.response.use( x => {
         console.error( `Execution time for: ${x.config.url} - ${x.config.method} - ${new Date().getTime() - x.config.meta.requestStartedAt} ms` )
         throw x;
     }
-) */
+)
 
 
 module.exports = {
